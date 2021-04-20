@@ -1,0 +1,64 @@
+{% extends 'auctions/layout.html' %}
+{% block title%} 
+Create listing
+{% endblock %}
+
+{% block body %}
+        <div class="container">
+            <div class="row my-3 justify-content-center">
+                <div class="col-lg-6">
+                    
+                    <form action="{% url 'create-listing' %}" method="POST" autocomplete="off">
+                        {% csrf_token %}
+                        
+                        <small class="text-muted"><strong>Title (required), Maximum 70 characters</strong></small>
+                        <div class="input-group mb-3">
+                            <input type="text" name="title" class="form-control mb-2" placeholder="Name (Required)" maxlength="70" required="" id="id_title">
+                        </div>
+        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Category</label>
+                            </div>
+                            <select name="category" class="form-control" id="inputGroupSelect01">
+                                <option value="No" selected="">No Category</option>
+                                
+                                <option value="Fashion">Fashion</option>
+                                
+                                <option value="Sport">Sport</option>
+                                
+                                <option value="Toy">Toy</option>
+                                
+                                <option value="Car">Car</option>
+                                
+                            </select>
+                        </div>
+                    
+                        <small class="text-muted"><strong>Starting bid (required), greater than 0 but less than $9,999,999</strong></small>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <label class="input-group-text" for="inputGroupSelect01">$</label>
+                            </div>
+                              <input type="number" name="min_bid" value="0" class="form-control" min="1" step="0.02" placeholder="Starting Bid (Required)" required="" id="id_min_bid">
+                              <div class="input-group-append">
+                                <label class="input-group-text" for="inputGroupSelect01">.00</label>
+                            </div>
+                        </div>
+        
+                        <small class="text-muted"><strong>Description (required), maximum 900 characters.</strong></small>
+                        <div class="input-group mb-3">
+                            <textarea name="description" cols="40" rows="10" class="form-control mb-2" placeholder="Description (Required)" maxlength="900" required="" id="id_description"></textarea>
+                        </div>
+                    
+                        <small class="text-muted"><strong>Image URL (optional)</strong></small>
+                        <div class="input-group mb-3">
+                            <input type="text" name="image_url" class="form-control mb-2" placeholder="Image URL (Optional)" maxlength="300" id="id_image_url">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-block btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+          </div>
+    
+{% endblock %}

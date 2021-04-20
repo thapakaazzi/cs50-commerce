@@ -1,0 +1,77 @@
+{% extends "auctions/layout.html" %}
+
+{%block title%}
+ Auctions
+ {% endblock title %}
+
+
+
+{% block body %}
+    
+    <div class="container mt-5">
+        <div class="row">
+            {%if catagory %}
+            <div class="col-12 text-right">
+            
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle mb-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Category Filter
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'all-listing' %}">All Listings</a>
+                        
+                            <a class="dropdown-item" href="{% url 'catagory' 'No'%}">No Category</a>
+                        
+                            <a class="dropdown-item" href="{% url 'catagory' 'Fashion'%}">Fashion</a>
+                        
+                            <a class="dropdown-item" href="{% url 'catagory' 'Sport'%}">Sport</a>
+                        
+                            <a class="dropdown-item" href="{% url 'catagory' 'Toy'%}">Toy</a>
+                        
+                            <a class="dropdown-item" href="{% url 'catagory' 'Car'%}">Car</a>
+                        
+                    </div>
+                </div>
+            
+            </div>
+            {%endif%}
+
+    {%for item in items%}        
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 d-flex flex-wrap align-items-stretch">
+                    <!-- Images are optional, display it if we have one. -->
+                        
+                    <a href="{% url 'listing' item.id%}">
+                        <img height="300px" class="card-img-top p-3" src="{% if item.image %} {{ item.image }} {% else %}
+                            https://sjkelectrical.com.my/img/default-image.jpg
+                            {% endif %}"  alt="{% if item.image%} {{ item.name }} {% else %} no image{%endif%}">
+                    </a>
+                        
+                    <div class="card-body" style="min-width: 18rem">
+                        <h4 class="card-text text-info">{{item.name}}</h4>
+                            <!--  When there are no bids display minimum bid as starting price -->
+                         Current Price: 
+                         <span class="text-success ">
+                            <strong>${{item.current_price}}</strong>            
+                          </span> <br>
+                    
+                        <span>Starting Price: ${{item.starting_bid}}</span><br>
+                            <small class="text-muted">Category: {{item.catagory}} </small>
+                            <div class="card-text mb-3" id="overflow" style="height: 100px;"><small>{{item.description}}</small></div>
+                            <div class="d-flex justify-content-between align-items-center">                                   
+                            <a href="{% url 'listing'  item.id%}" ><button type="button" class="btn btn-primary btn-block">View</button></a>
+                            {% if item.closed %}
+                                <button type="button" class="btn btn-warning btn-sm px-3" disabled="">Closed</button>
+                            {%endif%}                         
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                {%empty%}
+                <p>Nothing in this page.</p>
+                {% endfor%}
+        </div>
+    </div>
+
+    
+{% endblock %}
