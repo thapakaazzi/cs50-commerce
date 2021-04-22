@@ -1,1 +1,1 @@
-web: gunicorn auctions.wsgi
+web: gunicorn --pythonpath commerce commerce.wsgi
