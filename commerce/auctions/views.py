@@ -173,9 +173,12 @@ def add_watchlist(request, listing_id):
 @login_required
 def my_watchlist(request):
     my_watchlist = Watchlist.objects.filter(user=request.user).all()
-    my_watchlist = my_watchlist.values('item')
+    items=[]
+    for item in my_watchlist:
+        items.append(item.item)
+
     return render(request, "auctions/index.html", {
-        'items': my_watchlist
+        'items': items
     })
 
 @login_required
