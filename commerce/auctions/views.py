@@ -13,7 +13,7 @@ def index(request):
     auctions = AuctionListing.objects.filter(closed=False)
     
     return render(request, "auctions/index.html", {
-        'items': auctions
+        'items': auctions,
     })
 
 def all_listing(request):
