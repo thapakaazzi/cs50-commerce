@@ -1,2 +1,2 @@
-release: python manage.py migrate
+release: python --pythonpath commerce manage.py migrate
 web: gunicorn --pythonpath commerce commerce.wsgi
